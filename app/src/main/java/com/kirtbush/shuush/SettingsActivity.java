@@ -26,7 +26,7 @@ public class SettingsActivity extends FragmentActivity {
 //                myToast.makeText(getApplicationContext(), "meep", Toast.LENGTH_LONG);
                 SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
                 editor.putInt(getString(R.string.full_volume), progress);
-                editor.commit();
+                editor.apply();
             }
 
             @Override
@@ -47,7 +47,7 @@ public class SettingsActivity extends FragmentActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
                 editor.putInt(getString(R.string.low_volume), progress);
-                editor.commit();
+                editor.apply();
             }
 
             @Override
@@ -73,6 +73,12 @@ public class SettingsActivity extends FragmentActivity {
                     getResources().getInteger(R.integer.full_volume_default_int));
             fullVolumeSlider.setProgress(progress);
         }
+        else
+        {
+            fullVolumeSlider.setProgress(getPreferences(Context.MODE_PRIVATE).getInt(
+                    getString(R.string.full_volume),
+                    getResources().getInteger(R.integer.full_volume_default_int)));
+        }
 
            SeekBar lowVolumeSlider = (SeekBar)findViewById(R.id.low_volume_percent_seekbar);
 
@@ -81,6 +87,12 @@ public class SettingsActivity extends FragmentActivity {
                     getString(R.string.low_volume),
                     getResources().getInteger(R.integer.low_volume_default_int));
             lowVolumeSlider.setProgress(progress);
+        }
+        else
+        {
+            lowVolumeSlider.setProgress(getPreferences(Context.MODE_PRIVATE).getInt(
+                    getString(R.string.low_volume),
+                    getResources().getInteger(R.integer.low_volume_default_int)));
         }
     }
 

@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,9 +51,21 @@ public class MainActivity extends AppCompatActivity {
                 AudioManager audioManager =
                         (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
+                Double defaultVolumeLevel = new Double(getResources().getInteger(R.integer.full_volume_default_int));
+                double volumeLevel = getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.full_volume),0);
+
+                Log.d("DefaultVolumeLevel",defaultVolumeLevel.toString());
+                Log.d("VolumeLevel",String.format("%f",volumeLevel));
+
+                double maxStreamVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                Log.d("MaxStreamVolume",String.format("%f",maxStreamVolume));
+
+                double calculatedStreamVolume = (volumeLevel/100.0)*maxStreamVolume;
+                Log.d("calculatedStreamVolume",String.format("%f",calculatedStreamVolume));
+
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-                        getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.full_volume), 0),
-                        0);
+                        (int)calculatedStreamVolume,
+                        AudioManager.FLAG_SHOW_UI);
 
             }
         });
@@ -65,9 +78,21 @@ public class MainActivity extends AppCompatActivity {
                 AudioManager audioManager =
                         (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
+                double defaultVolumeLevel =  getResources().getInteger(R.integer.low_volume_default_int);
+                double volumeLevel = getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.low_volume),0);
+
+                Log.d("DefaultVolumeLevel",String.format("%f",defaultVolumeLevel));
+                Log.d("VolumeLevel",String.format("%f",volumeLevel));
+
+                double maxStreamVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                Log.d("MaxStreamVolume",String.format("%f",maxStreamVolume));
+
+                double calculatedStreamVolume = (volumeLevel/100.0)*maxStreamVolume;
+                Log.d("calculatedStreamVolume",String.format("%f",calculatedStreamVolume));
+
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-                        getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.low_volume), 0),
-                        0);
+                        (int)calculatedStreamVolume,
+                        AudioManager.FLAG_SHOW_UI);
             }
         });
     }
