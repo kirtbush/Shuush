@@ -14,7 +14,7 @@ public class CommonActivity extends AppCompatActivity {
     public void UpdateFullVolume()
     {
         // Code here executes on main thread after user presses button
-        Snackbar.make(findViewById(R.id.main_layout), "TROLO", Snackbar.LENGTH_SHORT).show();
+        //Snackbar.make(findViewById(R.id.main_layout), "TROLO", Snackbar.LENGTH_SHORT).show();
 
         Double defaultVolumeLevel = (double) getResources().getInteger(R.integer.full_volume_default_int);
         double volumeLevel = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE).getInt(getString(R.string.full_volume), 0);
@@ -60,7 +60,7 @@ public class CommonActivity extends AppCompatActivity {
 
     public void UpdateLowVolume() {
         // Code here executes on main thread after user presses button
-        Snackbar.make(findViewById(R.id.main_layout), "SHOWLOLOLO", Snackbar.LENGTH_SHORT).show();
+        //Snackbar.make(findViewById(R.id.main_layout), "SHOWLOLOLO", Snackbar.LENGTH_SHORT).show();
         AudioManager audioManager =
                 (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
