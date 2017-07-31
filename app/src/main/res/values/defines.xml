@@ -2,5 +2,4 @@
 <resources>
     <integer name="full_volume_default_int">95</integer>
     <integer name="low_volume_default_int">30</integer>
-
 </resources>

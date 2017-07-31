@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_main"
     android:id="@+id/main_layout">
 
-    <Button
+    <ImageButton
         android:id="@+id/full_volume_button"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -18,16 +18,18 @@
         app:layout_constraintBottom_toTopOf="@+id/low_volume_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_arrow_upward_black_48dp" />
 
-    <Button
+    <ImageButton
         android:id="@id/low_volume_button"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:text="@string/low_volume"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/full_volume_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/full_volume_button" />
-
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_arrow_downward_black_48dp" />
 </android.support.constraint.ConstraintLayout>

@@ -3,22 +3,18 @@ package com.kirtbush.shuush;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.media.VolumeProvider;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.content.Context;
+import android.widget.ImageButton;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends CommonActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,72 +23,31 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
 
-        if(!sharedPref.contains(getString(R.string.full_volume)))
-        {
+        if (!sharedPref.contains(getString(R.string.full_volume))) {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(getString(R.string.full_volume), getResources().getInteger(R.integer.full_volume_default_int));
-            editor.commit();
+            editor.apply();
         }
 
-        if(!sharedPref.contains(getString(R.string.low_volume)))
-        {
+        if (!sharedPref.contains(getString(R.string.low_volume))) {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(getString(R.string.low_volume), getResources().getInteger(R.integer.low_volume_default_int));
-            editor.commit();
+            editor.apply();
         }
 
-        final Button fullButton = (Button)findViewById(R.id.full_volume_button);
+        final ImageButton fullButton = (ImageButton) findViewById(R.id.full_volume_button);
         fullButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Snackbar.make(findViewById(R.id.main_layout), "TROLO", Snackbar.LENGTH_SHORT).show();
-                AudioManager audioManager =
-                        (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
-                Double defaultVolumeLevel = new Double(getResources().getInteger(R.integer.full_volume_default_int));
-                double volumeLevel = getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.full_volume),0);
-
-                Log.d("DefaultVolumeLevel",defaultVolumeLevel.toString());
-                Log.d("VolumeLevel",String.format("%f",volumeLevel));
-
-                double maxStreamVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                Log.d("MaxStreamVolume",String.format("%f",maxStreamVolume));
-
-                double calculatedStreamVolume = (volumeLevel/100.0)*maxStreamVolume;
-                Log.d("calculatedStreamVolume",String.format("%f",calculatedStreamVolume));
-
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-                        (int)calculatedStreamVolume,
-                        AudioManager.FLAG_SHOW_UI);
-
+                UpdateFullVolume();
             }
         });
 
-        final Button lowButton = (Button)findViewById(R.id.low_volume_button);
+        final ImageButton lowButton = (ImageButton) findViewById(R.id.low_volume_button);
         lowButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Snackbar.make(findViewById(R.id.main_layout), "SHOWLOLOLO", Snackbar.LENGTH_SHORT).show();
-                AudioManager audioManager =
-                        (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
-                double defaultVolumeLevel =  getResources().getInteger(R.integer.low_volume_default_int);
-                double volumeLevel = getPreferences(Context.MODE_PRIVATE).getInt(getString(R.string.low_volume),0);
-
-                Log.d("DefaultVolumeLevel",String.format("%f",defaultVolumeLevel));
-                Log.d("VolumeLevel",String.format("%f",volumeLevel));
-
-                double maxStreamVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                Log.d("MaxStreamVolume",String.format("%f",maxStreamVolume));
-
-                double calculatedStreamVolume = (volumeLevel/100.0)*maxStreamVolume;
-                Log.d("calculatedStreamVolume",String.format("%f",calculatedStreamVolume));
-
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-                        (int)calculatedStreamVolume,
-                        AudioManager.FLAG_SHOW_UI);
+                UpdateLowVolume();
             }
         });
     }

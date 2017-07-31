@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Shuush</string>
+    <string name="full_volume_name">ShuushFull</string>
     <string name="action_settings">Settings</string>
     <string name="full_volume">Full Volume</string>
     <string name="low_volume">Low Volume</string>
+    <string name="preference_key">com.kirtbush.shuush</string>
 </resources>
