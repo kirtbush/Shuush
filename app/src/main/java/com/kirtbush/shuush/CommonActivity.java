@@ -51,6 +51,10 @@ public class CommonActivity extends AppCompatActivity {
                 (int) ((volumeLevel / 100.0) * audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)),
                 AudioManager.FLAG_SHOW_UI);
 
+        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION,
+                (int) ((volumeLevel / 100.0) * audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)),
+                AudioManager.FLAG_SHOW_UI);
+
         //TODO: potentially replace with new preference
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
                 0,
